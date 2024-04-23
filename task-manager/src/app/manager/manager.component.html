@@ -1,0 +1,48 @@
+<form #taskForm="ngForm" (ngSubmit)="onSaveTask(taskForm.value)">
+    <div class="col-xs-12 col-md-5 col-md-offset-3">
+        <div class="mb-3">
+            </div>
+            <label for="taskName">Task name:</label>
+            <input
+                type="text"
+                class="form-control"
+                id="taskName"
+                required
+                ngModel
+                name="taskName"
+               /> 
+            <label for="priority">Select Priority</label>
+            <select
+                id="priority"
+                class="form-control"
+                name="priority"
+                required
+                ngModel
+                >
+                 <option value="Low">Low</option>
+                 <option value="High">High</option>
+            </select>
+            <label for="urgency">Select Urgency</label>
+            <select
+                id="urgency"
+                class="form-control"
+                name="urgency"
+                required
+                ngModel
+                >
+                 <option value="Low">Low</option>
+                 <option value="High">High</option>
+            </select>   
+        </div>
+        <button
+        class="btn btn-primary"
+        type="submit"
+        [disabled]=""
+        >
+        Save
+      </button>
+</form>
+<div class="row">
+    <div class="col-xs-12 col-md-5">
+    </div>
+</div>
