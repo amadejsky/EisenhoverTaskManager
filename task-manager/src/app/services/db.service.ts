@@ -9,13 +9,11 @@ export class DatabaseService{
 
     postData(taskName: string, priority: string, urgency: string){
         const task: Task = {taskName: taskName, priority: priority, urgency: urgency};
-        this.http
+        return this.http
         .post(
             'https://task-manager-app-e92fd-default-rtdb.europe-west1.firebasedatabase.app/tasks.json',
             task
-        ).subscribe(response =>{
-            console.log('Succesfuly posted data: '+response)
-        });
+        );
     }
 
     fetchData(){
@@ -39,7 +37,11 @@ export class DatabaseService{
     }
 
     delete(){
+        console.log('delete fired!');
         return this.http
-        .delete('https://task-manager-app-e92fd-default-rtdb.europe-west1.firebasedatabase.app/tasks.json');
+        .delete(
+            'https://task-manager-app-e92fd-default-rtdb.europe-west1.firebasedatabase.app/tasks.json'
+        );
+        
     }
 }

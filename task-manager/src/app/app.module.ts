@@ -6,18 +6,21 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { ManagerComponent } from './manager/manager.component';
 import { HttpClientModule } from '@angular/common/http';
-
+import { NgScrollbarModule } from 'ngx-scrollbar';
+import { HoverDirective } from './hover.directive';
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
-    ManagerComponent
+    ManagerComponent,
+    HoverDirective
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    NgScrollbarModule
   ],
   providers: [
     provideClientHydration()

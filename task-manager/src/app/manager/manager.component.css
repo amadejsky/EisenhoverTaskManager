@@ -17,3 +17,28 @@
     background-color: #fbc531;
 }
 
+@media screen and (max-width: 770px) {
+    .reaserch {
+      margin-left: 0;
+      margin-top: 0;
+      font-size: small;
+      position: relative;
+    }
+    .loaded{
+        height: 60%;
+    }
+    .btn-danger{
+        width: 80%;
+        font-size: small;
+    }
+  }
+
+  .hover-effect {
+    transition: transform 0.5s ease;
+  }
+  
+  .hover-effect:hover {
+    transition: transform 0.5s ease;
+    transform: scale(1.02);
+  }
+

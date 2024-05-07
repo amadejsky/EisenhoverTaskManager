@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-header',
@@ -6,5 +7,12 @@ import { Component } from '@angular/core';
   styleUrl: './header.component.css'
 })
 export class HeaderComponent {
+  private selected = new Subject<string>();
 
+  onSelectHome(){
+    this.selected.next('home');
+  }
+  onSelectAbout(){
+   this.selected.next('about');
+  }
 }

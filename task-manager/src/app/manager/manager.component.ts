@@ -13,7 +13,11 @@ export class ManagerComponent implements OnInit, OnDestroy{
   loadedTasks: Task[] = [];
   isFetching = false;
   error = null;
-  private subscription: Subscription = new Subscription();
+  do: number=0;
+  schedule: number=0;
+  delegate: number=0;
+  dont: number=0;
+
   @ViewChild('taskForm') taskForm!: NgForm;
   constructor(private db: DatabaseService){}
 
@@ -23,8 +27,15 @@ export class ManagerComponent implements OnInit, OnDestroy{
     console.log(task.urgency);
     this.taskForm.reset();
     this.isFetching = true;
-    this.db.postData(task.taskName, task.priority, task.urgency);
+    this.db.postData(task.taskName, task.priority, task.urgency).subscribe(()=>{
+      this.db.fetchData().subscribe(tasks => {
+      this.loadedTasks = tasks;
+      this.isFetching = false;
+      this.onAnalyze();
+    })
+    });
     this.isFetching = false;
+    
 
   }
 
@@ -43,9 +54,7 @@ export class ManagerComponent implements OnInit, OnDestroy{
     console.log(this.loadedTasks.values)
   }
 
-  ngOnDestroy(): void {
-    this.subscription.unsubscribe();
-  }
+  ngOnDestroy(): void {}
 
   onFetchData(){
     this.isFetching = true;
@@ -60,6 +69,13 @@ export class ManagerComponent implements OnInit, OnDestroy{
         }
     )
   }
+  onDelete(){
+    this.db.delete().subscribe(()=>{
+      this.loadedTasks = [];
+      this.onAnalyze();
+    });
+    
+  }
 
   getBackgroundColor(task: Task): string {
     if (task.priority === 'High' && task.urgency === 'High') {
@@ -73,6 +89,22 @@ export class ManagerComponent implements OnInit, OnDestroy{
     } else {
       return 'Error!';
     }
+  }
+
+  onAnalyze(){
+    this.do = 0, this.schedule = 0, this.delegate = 0, this.dont = 0;
+    this.loadedTasks.map(task=>{
+      if(task.priority === 'High' && task.urgency === 'High'){
+        this.do++;
+      }else if(task.priority ==='High' && task.urgency ==='Low'){
+        this.schedule++;
+      }else if(task.priority ==='Low' && task.urgency === 'High'){
+        this.delegate++;
+      }else{
+        this.dont++;
+      }
+
+    })
   }
   
 
