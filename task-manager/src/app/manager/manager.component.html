@@ -32,7 +32,8 @@
                     style="max-width: 12vw;">
                      <option value="Low">Low</option>
                      <option value="High">High</option>
-                </select>   
+                </select> 
+                <br>  
             <button
             class="btn btn-primary"
             type="submit"
@@ -46,7 +47,7 @@
           <!-- <button type="button" class="btn btn-warning" (click)="onAnalyze()">Analyze!</button> -->
     </form>
 <p *ngIf="isFetching">Loading...</p>
-<div class="row">
+<div class="row" style="margin:1vh 0 0 0">
     <div class="col-xs-8 col-md-8 loaded" *ngIf="loadedTasks.length != 0" scrollViewport>
         <p *ngIf="loadedTasks.length < 1 && !isFetching">No Tasks added!</p>
         <ul appHover class="list-group" *ngFor="let task of loadedTasks">
@@ -62,11 +63,11 @@
         <h2 style="margin-left: 5vw;">Nothing to Fetch!</h2>
     </div>
     <div class="col-xs-4 col-md-4" style="margin-left: 40vw;margin-top: -10vh; position: absolute;" *ngIf="loadedTasks.length != 0">
-        <h3>Your Reaserch:</h3>
-        <p>Tasks to do: {{do}}</p>
-        <p>Tasks to Schedule: {{schedule}}</p>
-        <p>Tasks to Delegate: {{delegate}}</p>
-        <p>Tasks to Cancel: {{dont}}</p>
+        <h3>Personal report:</h3>
+        <p class="text-muted">Tasks to do immediately: <b>{{do}}</b></p>
+        <p class="text-muted">Tasks to Schedule: <b>{{schedule}}</b></p>
+        <p class="text-muted">Tasks to Delegate: <b>{{delegate}}</b></p>
+        <p class="text-muted">Tasks to Cancel: <b>{{dont}}</b></p>
     </div>
 </div>
 

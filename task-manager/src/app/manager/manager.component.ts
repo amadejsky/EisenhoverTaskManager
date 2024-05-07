@@ -45,6 +45,7 @@ export class ManagerComponent implements OnInit, OnDestroy{
       tasks=>{
         this.isFetching=false;
         this.loadedTasks = tasks;
+        this.onAnalyze();
       },
       error =>{
         this.isFetching=false;

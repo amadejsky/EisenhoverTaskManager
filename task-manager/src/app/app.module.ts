@@ -8,12 +8,16 @@ import { ManagerComponent } from './manager/manager.component';
 import { HttpClientModule } from '@angular/common/http';
 import { NgScrollbarModule } from 'ngx-scrollbar';
 import { HoverDirective } from './hover.directive';
+import { AboutComponent } from './about/about.component';
+import { NotFoundComponent } from './not-found/not-found.component';
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     ManagerComponent,
-    HoverDirective
+    HoverDirective,
+    AboutComponent,
+    NotFoundComponent
   ],
   imports: [
     BrowserModule,

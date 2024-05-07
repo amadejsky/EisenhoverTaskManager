@@ -9,11 +9,13 @@ export class HoverDirective {
   constructor(private el: ElementRef, private renderer: Renderer2) { }
 
   @HostListener('mouseenter') onMouseEnter() {
+    this.renderer.removeClass(this.el.nativeElement, 'mouse-leave');
     this.renderer.addClass(this.el.nativeElement, 'hover-effect');
   }
 
   @HostListener('mouseleave') onMouseLeave() {
     this.renderer.removeClass(this.el.nativeElement, 'hover-effect');
+    this.renderer.addClass(this.el.nativeElement,'mouse-leave')
   }
 
 }

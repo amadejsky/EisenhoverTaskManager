@@ -2,19 +2,19 @@
     color: white;
 }
 .red{
-    background-color: #eb4d4b;
+    background-color: #d63031;
 }
 
 .blue{
-    background-color: #0097e6;
+    background-color: #0984e3;
 }
 
 .green{
-    background-color: #4cd137;
+    background-color: #009432;
 }
 
 .yellow{
-    background-color: #fbc531;
+    background-color: #FFC312;
 }
 
 @media screen and (max-width: 770px) {
@@ -38,7 +38,13 @@
   }
   
   .hover-effect:hover {
-    transition: transform 0.5s ease;
-    transform: scale(1.02);
+    transform: scale(1.01) skewX(5deg);
   }
 
+  .mouse-leave {
+    transition: transform 0.5s ease; 
+  }
+  
+  .mouse-leave:hover {
+    transform: scale(1.0) skewX(0deg);
+  }
