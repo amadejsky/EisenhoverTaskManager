@@ -3,11 +3,11 @@
 Discover an easy-to-use task manager that simplifies managing your tasks! Our Task Manager app is the perfect solution for anyone looking to have full control over their tasks without unnecessary stress and chaos.
 
 This simple tool allows you to focus on the most important tasks and effectively manage your time. Explore the possibilities offered by Task Manager based on the Eisenhower Matrix method and increase your productivity now!
-
+[![Matrix Task Manager](https://github.com/amadejsky/Resources/raw/main/MatrixTaskManager.png)](https://github.com/amadejsky/Resources/blob/main/MatrixTaskManager.png)
 ## Technologies Used
 
-- **Angular:** version X.X.X
-- **TypeScript:** version X.X.X
+- **Angular:** 
+- **TypeScript:** 
 
 ## Getting Started
 

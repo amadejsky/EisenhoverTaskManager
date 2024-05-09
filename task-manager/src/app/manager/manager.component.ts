@@ -152,8 +152,16 @@ export class ManagerComponent implements OnInit, OnDestroy{
       console.log('Error occurred! ID not identified correctly');
     }
   }
-  
-   
+  tomorrowDeadline(){
+    const today = new Date();
+    const tomorrow = new Date(today.getTime() + 24 * 60 * 60 * 1000);
+    return this.loadedTasks.filter(task=>{
+      if(!task.deadline) return false;
+
+      const taskDeadline = new Date(task.deadline);
+      return taskDeadline.getFullYear() === tomorrow.getFullYear() &&
+      taskDeadline.getMonth() === tomorrow.getMonth() &&
+      taskDeadline.getDate() === tomorrow.getDate();
+    })
   }
-
-
+}

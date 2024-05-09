@@ -49,7 +49,7 @@
             >
             Add!
           </button>
-          <button class=" btn btn-danger" (click)="onDelete()">Delete Tasks!</button>
+          <button class=" btn btn-danger" (click)="onDelete()">Delete All Tasks!</button>
           <!-- Functionalities already builded in -->
           <!-- <button class="btn btn-primary" (click)="onFetchData()">Refresh!</button> -->
           <!-- <button type="button" class="btn btn-warning" (click)="onAnalyze()">Analyze!</button> -->
@@ -74,7 +74,7 @@
     </div>
     <div class="col-xs-4 col-md-4 reaserch" *ngIf="loadedTasks.length === 0">
         <img src="../../assets/undraw_task_list_6x9d.png" style="max-width: 40vw; height:auto ;">
-        <h2 style="margin-left: 5vw;">Nothing to Fetch!</h2>
+        <h2 style="margin-left: 5vw;">Add your tasks to manage!</h2>
     </div>
     <div class="col-xs-4 col-md-4" style="margin-left: 40vw;margin-top: -10vh; position: absolute;" *ngIf="loadedTasks.length != 0">
         <h3>Personal report:</h3>
@@ -82,6 +82,20 @@
         <p class="text-muted">Tasks to Schedule: <b>{{schedule}}</b></p>
         <p class="text-muted">Tasks to Delegate: <b>{{delegate}}</b></p>
         <p class="text-muted" style="text-decoration: line-through;" >Tasks to Cancel: <b>{{dont}}</b></p>
+        <h3>Tasks for Tommorow:</h3>
+        <ul appHover class="list-group" *ngFor="let task of tomorrowDeadline()">
+            <li class="list-group-item" [ngClass]="getBackgroundColor(task)">
+                <h4>{{task.taskName}}</h4>
+                <p *ngIf="task.priority">Priority: {{task.priority}}</p>
+                <p *ngIf="task.urgency">Urgency: {{task.urgency}}</p>
+                <p *ngIf="task.deadline">Deadline: {{task.deadline}}</p>
+                <!-- <button class="btn btn-danger"
+                 type="button"
+                 style="position: absolute; top: 0.3vw; right: 0.3vw;"
+                 (click)="onClick(task)"
+                 >X</button>  -->
+            </li>        
+         </ul>
     </div>
 </div>
 
