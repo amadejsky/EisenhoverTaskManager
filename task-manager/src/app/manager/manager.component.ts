@@ -13,6 +13,8 @@ export class ManagerComponent implements OnInit, OnDestroy{
   loadedTasks: Task[] = [];
   isFetching = false;
   error = null;
+  
+
   do: number=0;
   schedule: number=0;
   delegate: number=0;
@@ -21,23 +23,32 @@ export class ManagerComponent implements OnInit, OnDestroy{
   @ViewChild('taskForm') taskForm!: NgForm;
   constructor(private db: DatabaseService){}
 
-  onSaveTask(task: Task){
+  onSaveTask(task: Task) {
     console.log(task.taskName);
     console.log(task.priority);
     console.log(task.urgency);
     this.taskForm.reset();
     this.isFetching = true;
-    this.db.postData(task.taskName, task.priority, task.urgency).subscribe(()=>{
-      this.db.fetchData().subscribe(tasks => {
-      this.loadedTasks = tasks;
-      this.isFetching = false;
-      this.onAnalyze();
-    })
-    });
-    this.isFetching = false;
     
+    if (task.deadline) {
+        this.db.postDataWithDeadline(task.taskName, task.priority, task.urgency, task.deadline).subscribe(() => {
+            this.db.fetchData().subscribe(tasks => {
+                this.loadedTasks = tasks;
+                this.isFetching = false;
+                this.onAnalyze();
+            });
+        });
+    } else {
+        this.db.postData(task.taskName, task.priority, task.urgency).subscribe(() => {
+            this.db.fetchData().subscribe(tasks => {
+                this.loadedTasks = tasks;
+                this.isFetching = false;
+                this.onAnalyze();
+            });
+        });
+    }
+}
 
-  }
 
   ngOnInit(){
     this.isFetching = true;
@@ -53,6 +64,7 @@ export class ManagerComponent implements OnInit, OnDestroy{
         }
     )
     console.log(this.loadedTasks.values)
+
   }
 
   ngOnDestroy(): void {}
@@ -107,6 +119,41 @@ export class ManagerComponent implements OnInit, OnDestroy{
 
     })
   }
-  
 
-}
+  // checkLastId(){
+  //   this.loadedTasks.map(task=>{
+  //     if(this.generatedId<task.id){
+  //       this.generatedId=task.id+1;
+  //     }
+  //   })
+  // }
+
+  // onClick(task: Task){
+  //   console.log(task);
+  //   console.log('Selected Task id is: '+task.id);
+  //     if(task.id){
+  //        this.db.deleteById(task.id);
+  //     }else{
+  //       console.log('Error occured! ID not identified correctly')
+  //     }
+  // }
+
+  onClick(task: Task) {
+    console.log(task);
+    console.log('Selected Task id is: ' + task.id);
+    if (task.id) {
+      this.db.deleteById(task.id).subscribe(() => {
+        this.db.fetchData().subscribe(tasks => {
+          this.loadedTasks = tasks;
+          this.onAnalyze();
+        });
+      });
+    } else {
+      console.log('Error occurred! ID not identified correctly');
+    }
+  }
+  
+   
+  }
+
+

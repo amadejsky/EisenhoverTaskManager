@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { catchError, map, Subscription, throwError } from "rxjs";
-import { Task } from "../models/task.model";
+import { Task, TaskImpl } from "../models/task.model";
 @Injectable({providedIn: 'root'})
 export class DatabaseService{
     // private subscription: Subscription;
@@ -15,6 +15,15 @@ export class DatabaseService{
             task
         );
     }
+    postDataWithDeadline(taskName: string, priority: string, urgency: string, deadline: Date){
+        const task: TaskImpl = new TaskImpl(taskName, priority, urgency, deadline);
+        return this.http
+        .post(
+            'https://task-manager-app-e92fd-default-rtdb.europe-west1.firebasedatabase.app/tasks.json',
+            task
+        );
+    }
+    
 
     fetchData(){
         return this.http.get<{ [key:string]: Task}>(
@@ -41,6 +50,15 @@ export class DatabaseService{
         return this.http
         .delete(
             'https://task-manager-app-e92fd-default-rtdb.europe-west1.firebasedatabase.app/tasks.json'
+        );
+        
+    }
+
+    deleteById(id: string){
+        console.log('delete by id fired!');
+        return this.http
+        .delete(
+            `https://task-manager-app-e92fd-default-rtdb.europe-west1.firebasedatabase.app/tasks/${id}.json`
         );
         
     }

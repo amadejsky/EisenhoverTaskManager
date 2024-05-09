@@ -33,6 +33,14 @@
                      <option value="Low">Low</option>
                      <option value="High">High</option>
                 </select> 
+                <label for="deadline">(Optional) Deadline:</label>
+                <input 
+                    type="date" 
+                    id="deadline" 
+                    name="deadline" 
+                    ngModel
+                    class="form-control" 
+                    style="max-width: 12vw; margin-left: 5px;">
                 <br>  
             <button
             class="btn btn-primary"
@@ -55,7 +63,13 @@
                 <h4>{{task.taskName}}</h4>
                 <p *ngIf="task.priority">Priority: {{task.priority}}</p>
                 <p *ngIf="task.urgency">Urgency: {{task.urgency}}</p>
-            </li>     
+                <p *ngIf="task.deadline">Deadline: {{task.deadline}}</p>
+                <button class="btn btn-danger"
+                 type="button"
+                 style="position: absolute; top: 0.3vw; right: 0.3vw;"
+                 (click)="onClick(task)"
+                 >X</button> 
+            </li>        
          </ul>
     </div>
     <div class="col-xs-4 col-md-4 reaserch" *ngIf="loadedTasks.length === 0">
@@ -67,7 +81,7 @@
         <p class="text-muted">Tasks to do immediately: <b>{{do}}</b></p>
         <p class="text-muted">Tasks to Schedule: <b>{{schedule}}</b></p>
         <p class="text-muted">Tasks to Delegate: <b>{{delegate}}</b></p>
-        <p class="text-muted">Tasks to Cancel: <b>{{dont}}</b></p>
+        <p class="text-muted" style="text-decoration: line-through;" >Tasks to Cancel: <b>{{dont}}</b></p>
     </div>
 </div>
 
