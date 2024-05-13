@@ -1,101 +1,86 @@
 <div class="row">
-    <form #taskForm="ngForm" (ngSubmit)="onSaveTask(taskForm.value)" style="max-width: 40vw; margin: 2vw 0 0 1vw">
-        <div class="col-xs-5 col-md-3 col-md-offset-2">
-                </div>
-                <label for="taskName">Task name:</label>
-                <input
-                    type="text"
-                    class="form-control"
-                    id="taskName"
-                    required
-                    ngModel
-                    name="taskName"
-                   /> 
-                <label for="priority">Select Priority</label>
-                <select
-                    id="priority"
-                    class="form-control"
-                    name="priority"
-                    required
-                    ngModel
-                    style="max-width: 12vw;">
-                     <option value="Low">Low</option>
-                     <option value="High">High</option>
-                </select>
-                <label for="urgency">Select Urgency</label>
-                <select
-                    id="urgency"
-                    class="form-control"
-                    name="urgency"
-                    required
-                    ngModel
-                    style="max-width: 12vw;">
-                     <option value="Low">Low</option>
-                     <option value="High">High</option>
-                </select> 
-                <label for="deadline">(Optional) Deadline:</label>
-                <input 
-                    type="date" 
-                    id="deadline" 
-                    name="deadline" 
-                    ngModel
-                    class="form-control" 
-                    style="max-width: 12vw; margin-left: 5px;">
-                <br>  
-            <button
-            class="btn btn-primary"
-            type="submit"
-            [disabled]="!taskForm.valid"
-            >
-            Add!
-          </button>
-          <button class=" btn btn-danger" (click)="onDelete()">Delete All Tasks!</button>
-          <!-- Functionalities already builded in -->
-          <!-- <button class="btn btn-primary" (click)="onFetchData()">Refresh!</button> -->
-          <!-- <button type="button" class="btn btn-warning" (click)="onAnalyze()">Analyze!</button> -->
-    </form>
-<p *ngIf="isFetching">Loading...</p>
-<div class="row" style="margin:1vh 0 0 0">
-    <div class="col-xs-8 col-md-8 loaded" *ngIf="loadedTasks.length != 0" scrollViewport>
-        <p *ngIf="loadedTasks.length < 1 && !isFetching">No Tasks added!</p>
-        <ul appHover class="list-group" *ngFor="let task of loadedTasks">
-            <li class="list-group-item" [ngClass]="getBackgroundColor(task)">
-                <h4>{{task.taskName}}</h4>
-                <p *ngIf="task.priority">Priority: {{task.priority}}</p>
-                <p *ngIf="task.urgency">Urgency: {{task.urgency}}</p>
-                <p *ngIf="task.deadline">Deadline: {{task.deadline}}</p>
-                <button class="btn btn-danger"
-                 type="button"
-                 style="position: absolute; top: 0.3vw; right: 0.3vw;"
-                 (click)="onClick(task)"
-                 >X</button> 
-            </li>        
-         </ul>
+    <div class="col-md-12 "  style="margin-top: 2vw; margin-left: 4vw;">
+        <form #taskForm="ngForm" (ngSubmit)="onSaveTask(taskForm.value)" style="max-width: 40vw; margin: 2vw 0 0 1vw">
+            <div class="col-xs-5 col-md-3 col-md-offset-2">
+                    </div>
+                    <label for="taskName"><h2 class="text-muted">Task name:</h2></label>
+                    <input
+                        type="text"
+                        class="form-control"
+                        id="taskName"
+                        required
+                        ngModel
+                        name="taskName"
+                       /> 
+                    <label for="priority"><h3 class="text-muted">Select Priority:</h3></label>
+                    <select
+                        id="priority"
+                        class="form-control"
+                        name="priority"
+                        required
+                        ngModel
+                        style="max-width: 12vw;">
+                         <option value="Low">Low</option>
+                         <option value="High">High</option>
+                    </select>
+                    <label for="urgency"><h3 class="text-muted">Select Urgency:</h3></label>
+                    <select
+                        id="urgency"
+                        class="form-control"
+                        name="urgency"
+                        required
+                        ngModel
+                        style="max-width: 12vw;">
+                         <option value="Low">Low</option>
+                         <option value="High">High</option>
+                    </select> 
+                    <label for="deadline" class="text-muted"><h4>(Optional) Deadline:</h4></label>
+                    <input 
+                        type="date" 
+                        id="deadline" 
+                        name="deadline" 
+                        ngModel
+                        class="form-control" 
+                        style="max-width: 12vw; margin-left: 5px;">
+                    <br>  
+                <button
+                class="btn btn-primary"
+                type="submit"
+                [disabled]="!taskForm.valid"
+                >
+                Add!
+              </button>
+              <button class=" btn btn-danger" (click)="onDelete()">Delete All Tasks!</button>
+              <!-- Functionalities already builded in -->
+              <!-- <button class="btn btn-primary" (click)="onFetchData()">Refresh!</button> -->
+              <!-- <button type="button" class="btn btn-warning" (click)="onAnalyze()">Analyze!</button> -->
+        </form>
+    <p *ngIf="isFetching">Loading...</p>
+    <div class="row"  style="margin-top: 2vw; margin-left: 4vw;">
+        <div class="col-xs-10 col-md-10 loaded" *ngIf="loadedTasks.length != 0" scrollViewport>
+            <p *ngIf="loadedTasks.length < 1 && !isFetching">No Tasks added!</p>
+            <ul appHover class="list-group" *ngFor="let task of loadedTasks">
+                <li class="list-group-item" [ngClass]="getBackgroundColor(task)">
+                    <h4>{{task.taskName}}</h4>
+                    <p *ngIf="task.priority">Priority: {{task.priority}}</p>
+                    <p *ngIf="task.urgency">Urgency: {{task.urgency}}</p>
+                    <p *ngIf="task.deadline">Deadline: {{task.deadline}}</p>
+                    <button class="btn btn-danger"
+                     type="button"
+                     style="position: absolute; top: 0.3vw; right: 0.3vw;"
+                     (click)="onClick(task)"
+                     >X</button> 
+                </li>        
+             </ul>
+        </div>
+        <div class="col-xs-4 col-md-4 reaserch" *ngIf="loadedTasks.length === 0">
+            <img src="../../assets/undraw_task_list_6x9d.png" style="max-width: 40vw; height:auto ;">
+            <h2 style="margin-left: 5vw;">Add your tasks to manage!</h2>
+        </div>
+        <div class="col-xs-4 col-md-4" style="margin-left: 40vw;margin-top: -10vh; position: absolute;" *ngIf="loadedTasks.length != 0">
+            
+        </div>
     </div>
-    <div class="col-xs-4 col-md-4 reaserch" *ngIf="loadedTasks.length === 0">
-        <img src="../../assets/undraw_task_list_6x9d.png" style="max-width: 40vw; height:auto ;">
-        <h2 style="margin-left: 5vw;">Add your tasks to manage!</h2>
-    </div>
-    <div class="col-xs-4 col-md-4" style="margin-left: 40vw;margin-top: -10vh; position: absolute;" *ngIf="loadedTasks.length != 0">
-        <h3>Personal report:</h3>
-        <p class="text-muted">Tasks to do immediately: <b>{{do}}</b></p>
-        <p class="text-muted">Tasks to Schedule: <b>{{schedule}}</b></p>
-        <p class="text-muted">Tasks to Delegate: <b>{{delegate}}</b></p>
-        <p class="text-muted" style="text-decoration: line-through;" >Tasks to Cancel: <b>{{dont}}</b></p>
-        <h3>Tasks for Tommorow:</h3>
-        <ul appHover class="list-group" *ngFor="let task of tomorrowDeadline()">
-            <li class="list-group-item" [ngClass]="getBackgroundColor(task)">
-                <h4>{{task.taskName}}</h4>
-                <p *ngIf="task.priority">Priority: {{task.priority}}</p>
-                <p *ngIf="task.urgency">Urgency: {{task.urgency}}</p>
-                <p *ngIf="task.deadline">Deadline: {{task.deadline}}</p>
-                <!-- <button class="btn btn-danger"
-                 type="button"
-                 style="position: absolute; top: 0.3vw; right: 0.3vw;"
-                 (click)="onClick(task)"
-                 >X</button>  -->
-            </li>        
-         </ul>
-    </div>
+    
 </div>
 

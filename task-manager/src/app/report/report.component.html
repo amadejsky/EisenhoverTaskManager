@@ -1,0 +1,43 @@
+
+<div class="row">
+    <div class="col-md-8" style="margin:3vw 0 0 5vw">
+        <h3>Personal report:</h3>
+        <p class="text-muted">Tasks to do immediately: <b>{{do}}</b></p>
+        <p class="text-muted">Tasks to Schedule: <b>{{schedule}}</b></p>
+        <p class="text-muted">Tasks to Delegate: <b>{{delegate}}</b></p>
+        <p class="text-muted" style="text-decoration: line-through;" >Tasks to Cancel: <b>{{dont}}</b></p>
+        <h3>Tasks for Tommorow:</h3>
+        <ul appHover class="list-group" *ngFor="let task of tomorrowDeadline()">
+            <li class="list-group-item" [ngClass]="getBackgroundColor(task)">
+                <h4>{{task.taskName}}</h4>
+                <p *ngIf="task.priority">Priority: {{task.priority}}</p>
+                <p *ngIf="task.urgency">Urgency: {{task.urgency}}</p>
+                <p *ngIf="task.deadline">Deadline: {{task.deadline}}</p>
+                <!-- <button class="btn btn-danger"
+                 type="button"
+                 style="position: absolute; top: 0.3vw; right: 0.3vw;"
+                 (click)="onClick(task)"
+                 >X</button>  -->
+            </li>        
+         </ul>
+         <h3>Tasks to Cancel!</h3>
+         <ul class="list-group">
+             <ng-container *ngFor="let task of loadedTasks">
+                 <li class="list-group-item" [ngClass]="getBackgroundColor(task)" *ngIf="task.priority === 'Low' && task.urgency === 'Low'">
+                     <h4>{{task.taskName}}</h4>
+                     <p *ngIf="task.priority">Priority: {{task.priority}}</p>
+                     <p *ngIf="task.urgency">Urgency: {{task.urgency}}</p>
+                     <p *ngIf="task.deadline">Deadline: {{task.deadline}}</p>
+                     <button class="btn btn-danger"
+                        type="button"
+                        style="position: absolute; top: 0.3vw; right: 0.3vw;"
+                        (click)="onClick(task)"
+                    >X</button> 
+                 </li>
+             </ng-container>
+         </ul>
+
+    </div>
+    
+</div>
+

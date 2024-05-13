@@ -10,6 +10,7 @@ import { NgScrollbarModule } from 'ngx-scrollbar';
 import { HoverDirective } from './hover.directive';
 import { AboutComponent } from './about/about.component';
 import { NotFoundComponent } from './not-found/not-found.component';
+import { ReportComponent } from './report/report.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -17,7 +18,8 @@ import { NotFoundComponent } from './not-found/not-found.component';
     ManagerComponent,
     HoverDirective,
     AboutComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    ReportComponent
   ],
   imports: [
     BrowserModule,

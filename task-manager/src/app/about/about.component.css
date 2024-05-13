@@ -1,0 +1,11 @@
+@media (max-width: 1202px) {
+    .col-md-8 {
+        margin-top: 11vh;
+    }
+}
+
+@media (min-width: 1400px) {
+    .col-md-8 {
+        margin-top: -13vh;
+    }
+}
