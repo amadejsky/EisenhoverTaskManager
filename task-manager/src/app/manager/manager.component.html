@@ -1,5 +1,5 @@
 <div class="row">
-    <div class="col-md-12 "  style="margin-top: 2vw; margin-left: 4vw;">
+    <div class="col-md-12 body"  style="margin-top: 2vw; margin-left: 4vw;">
         <form #taskForm="ngForm" (ngSubmit)="onSaveTask(taskForm.value)" style="max-width: 40vw; margin: 2vw 0 0 1vw">
             <div class="col-xs-5 col-md-3 col-md-offset-2">
                     </div>
@@ -55,7 +55,7 @@
               <!-- <button class="btn btn-primary" (click)="onFetchData()">Refresh!</button> -->
               <!-- <button type="button" class="btn btn-warning" (click)="onAnalyze()">Analyze!</button> -->
         </form>
-    <p *ngIf="isFetching">Loading...</p>
+    <!-- <p *ngIf="isFetching">Loading...</p>
     <div class="row"  style="margin-top: 2vw; margin-left: 4vw;">
         <div class="col-xs-10 col-md-10 loaded" *ngIf="loadedTasks.length != 0" scrollViewport>
             <p *ngIf="loadedTasks.length < 1 && !isFetching">No Tasks added!</p>
@@ -79,7 +79,7 @@
         </div>
         <div class="col-xs-4 col-md-4" style="margin-left: 40vw;margin-top: -10vh; position: absolute;" *ngIf="loadedTasks.length != 0">
             
-        </div>
+        </div> -->
     </div>
     
 </div>

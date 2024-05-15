@@ -50,13 +50,18 @@
   }
 
   form{
-    /* box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
--webkit-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
--moz-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
-border:1px solid  */
+    border: 10px inset #95afc0;
+    padding:2vw;
+    box-shadow: 10px 10px 40px 4px rgba(0,0,0,0.75);
+    -webkit-box-shadow: 10px 10px 40px 4px rgba(0,0,0,0.75);
+    -moz-box-shadow: 10px 10px 40px 4px rgba(0,0,0,0.75);
   }
 
   .body {
     background-image: url('../../assets/undraw_Timeline_re_aw6g.png');
     background-size: cover;
+}
+
+.col-md-12{
+  height:100vh;
 }

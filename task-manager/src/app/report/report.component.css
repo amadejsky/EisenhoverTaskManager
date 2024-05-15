@@ -49,3 +49,18 @@
   .mouse-leave:hover {
     transform: scale(1.0) skewX(0deg);
   }
+
+  .col-md-4{
+    border: 10px inset #95afc0;
+    padding:2vw;
+    box-shadow: 10px 10px 40px 4px rgba(0,0,0,0.75);
+    -webkit-box-shadow: 10px 10px 40px 4px rgba(0,0,0,0.75);
+    -moz-box-shadow: 10px 10px 40px 4px rgba(0,0,0,0.75);
+  }
+
+  .report{
+    background: url('../../assets/undraw_Data_report_re_p4so.png') no-repeat center center;
+    background-size: cover;
+    color:#30336b;
+    
+}

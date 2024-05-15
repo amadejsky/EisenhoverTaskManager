@@ -120,24 +120,6 @@ export class ManagerComponent implements OnInit, OnDestroy{
     })
   }
 
-  // checkLastId(){
-  //   this.loadedTasks.map(task=>{
-  //     if(this.generatedId<task.id){
-  //       this.generatedId=task.id+1;
-  //     }
-  //   })
-  // }
-
-  // onClick(task: Task){
-  //   console.log(task);
-  //   console.log('Selected Task id is: '+task.id);
-  //     if(task.id){
-  //        this.db.deleteById(task.id);
-  //     }else{
-  //       console.log('Error occured! ID not identified correctly')
-  //     }
-  // }
-
   onClick(task: Task) {
     console.log(task);
     console.log('Selected Task id is: ' + task.id);
