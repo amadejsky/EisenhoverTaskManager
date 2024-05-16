@@ -35,7 +35,6 @@ export class ManagerComponent implements OnInit, OnDestroy{
             this.db.fetchData().subscribe(tasks => {
                 this.loadedTasks = tasks;
                 this.isFetching = false;
-                this.onAnalyze();
             });
         });
     } else {
@@ -43,20 +42,16 @@ export class ManagerComponent implements OnInit, OnDestroy{
             this.db.fetchData().subscribe(tasks => {
                 this.loadedTasks = tasks;
                 this.isFetching = false;
-                this.onAnalyze();
             });
         });
     }
 }
-
-
   ngOnInit(){
     this.isFetching = true;
     this.db.fetchData().subscribe(
       tasks=>{
         this.isFetching=false;
         this.loadedTasks = tasks;
-        this.onAnalyze();
       },
       error =>{
         this.isFetching=false;
@@ -85,7 +80,6 @@ export class ManagerComponent implements OnInit, OnDestroy{
   onDelete(){
     this.db.delete().subscribe(()=>{
       this.loadedTasks = [];
-      this.onAnalyze();
     });
     
   }
@@ -102,48 +96,5 @@ export class ManagerComponent implements OnInit, OnDestroy{
     } else {
       return 'Error!';
     }
-  }
-
-  onAnalyze(){
-    this.do = 0, this.schedule = 0, this.delegate = 0, this.dont = 0;
-    this.loadedTasks.map(task=>{
-      if(task.priority === 'High' && task.urgency === 'High'){
-        this.do++;
-      }else if(task.priority ==='High' && task.urgency ==='Low'){
-        this.schedule++;
-      }else if(task.priority ==='Low' && task.urgency === 'High'){
-        this.delegate++;
-      }else{
-        this.dont++;
-      }
-
-    })
-  }
-
-  onClick(task: Task) {
-    console.log(task);
-    console.log('Selected Task id is: ' + task.id);
-    if (task.id) {
-      this.db.deleteById(task.id).subscribe(() => {
-        this.db.fetchData().subscribe(tasks => {
-          this.loadedTasks = tasks;
-          this.onAnalyze();
-        });
-      });
-    } else {
-      console.log('Error occurred! ID not identified correctly');
-    }
-  }
-  tomorrowDeadline(){
-    const today = new Date();
-    const tomorrow = new Date(today.getTime() + 24 * 60 * 60 * 1000);
-    return this.loadedTasks.filter(task=>{
-      if(!task.deadline) return false;
-
-      const taskDeadline = new Date(task.deadline);
-      return taskDeadline.getFullYear() === tomorrow.getFullYear() &&
-      taskDeadline.getMonth() === tomorrow.getMonth() &&
-      taskDeadline.getDate() === tomorrow.getDate();
-    })
   }
 }
