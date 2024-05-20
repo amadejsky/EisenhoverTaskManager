@@ -11,6 +11,7 @@ import { HoverDirective } from './hover.directive';
 import { AboutComponent } from './about/about.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { ReportComponent } from './report/report.component';
+import { AuthComponent } from './auth-component/auth-component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -19,7 +20,8 @@ import { ReportComponent } from './report/report.component';
     HoverDirective,
     AboutComponent,
     NotFoundComponent,
-    ReportComponent
+    ReportComponent,
+    AuthComponent
   ],
   imports: [
     BrowserModule,
