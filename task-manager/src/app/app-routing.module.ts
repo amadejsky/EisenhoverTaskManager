@@ -9,7 +9,8 @@ import { AuthComponent } from './auth-component/auth-component';
 const routes: Routes = [];
 
   const appRoutes: Routes = [
-    {path: '', component: AboutComponent},
+    {path: '', component: AuthComponent},
+    {path: 'about', component: AboutComponent},
     {path: 'app', component:ManagerComponent},
     {path: 'report', component:ReportComponent},
     { path: 'auth', component: AuthComponent},

@@ -3,7 +3,16 @@
     justify-content: center;
     align-items: center;
     height: 100vh;
+    background: url('../../assets/undraw_two_factor_authentication_namy.png');
+    width:100%;
 }
 .login-form{
-    width:39%;
+    width:30%;
+    height:30%;
+    padding: 5vh;
+    box-shadow: 15px 13px 25px 5px rgba(0,0,0,0.75);
+    -webkit-box-shadow: 15px 13px 25px 5px rgba(0,0,0,0.75);
+    -moz-box-shadow: 15px 13px 25px 5px rgba(0,0,0,0.75);
+    margin-top: -11vh;
+    background-color: rgba(255, 255, 255, 0.8);
 }
