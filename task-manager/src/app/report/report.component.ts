@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Task } from '../models/task.model';
 import { DatabaseService } from '../services/db.service';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-report',
@@ -12,7 +13,7 @@ export class ReportComponent implements OnInit {
   loadedTasks: Task[] = [];
   isFetching = false;
   error = null;
-  
+  userEmail = '';
 
   do: number=0;
   schedule: number=0;
@@ -20,11 +21,14 @@ export class ReportComponent implements OnInit {
   dont: number=0;
 
   @ViewChild('taskForm') taskForm!: NgForm;
-  constructor(private db: DatabaseService){}
+  constructor(private db: DatabaseService, private authService: AuthService){}
 
   ngOnInit(){
+    this.authService.user.subscribe(user=>{
+      this.userEmail = user?.email || 'unknown';
+    });
     this.isFetching = true;
-    this.db.fetchData().subscribe(
+    this.db.fetchData(this.userEmail).subscribe(
       tasks=>{
         this.isFetching=false;
         this.loadedTasks = tasks;
@@ -35,13 +39,14 @@ export class ReportComponent implements OnInit {
         this.error=error.message;
         }
     )
-    console.log(this.loadedTasks.values)
+    console.log(this.loadedTasks.values);
+    console.log(this.userEmail+'ng On init of report');
 
   }
 
   onFetchData(){
     this.isFetching = true;
-    this.db.fetchData().subscribe(
+    this.db.fetchData(this.userEmail).subscribe(
       tasks=>{
         this.isFetching=false;
         this.loadedTasks = tasks;
@@ -53,7 +58,7 @@ export class ReportComponent implements OnInit {
     )
   }
   onDelete(){
-    this.db.delete().subscribe(()=>{
+    this.db.delete(this.userEmail).subscribe(()=>{
       this.loadedTasks = [];
       this.onAnalyze();
     });
@@ -94,8 +99,8 @@ export class ReportComponent implements OnInit {
     console.log(task);
     console.log('Selected Task id is: ' + task.id);
     if (task.id) {
-      this.db.deleteById(task.id).subscribe(() => {
-        this.db.fetchData().subscribe(tasks => {
+      this.db.deleteById(task.id, this.userEmail).subscribe(() => {
+        this.db.fetchData(this.userEmail).subscribe(tasks => {
           this.loadedTasks = tasks;
           this.onAnalyze();
         });

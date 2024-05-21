@@ -1,9 +1,9 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
-
 import { BehaviorSubject, catchError, tap, throwError } from "rxjs";
 import { User } from "../auth-component/user.model";
+import { environment } from "../environment/environment";
 
 export interface AuthResponseData {
     kind: string;
@@ -23,26 +23,48 @@ export class AuthService{
     private tokenExpirationTimer: any;
     constructor(private http: HttpClient, private router: Router){}
 
-    signup(email: string, password: string){
+    signup(email: string, password: string) {
         return this.http.post<AuthResponseData>(
-            'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyDlda6vhNeuR9XKgPg9i_JZtihP3G4aLqo',
+            `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=`+ environment.authKey,
             {
                 email: email,
                 password: password,
                 returnSecureToken: true
             }
         ).pipe(
-            catchError(error=>{
-                let errorMsg = 'An Unknown Error of Signup occured!';
+            tap(resData => {
+                const expirationDate = new Date(new Date().getTime() + +resData.expiresIn * 1000);
+                const user = new User(
+                    resData.email,
+                    resData.localId,
+                    resData.idToken,
+                    expirationDate
+                );
+                this.user.next(user);
+                this.autoLogout(+resData.expiresIn * 1000);
+
+                this.login(email, password).subscribe(
+                    userData => {
+                        console.log(email+' '+password);
+                    },
+                    error => {
+                        console.log(error);
+                    }
+                );
+            }),
+            catchError(error => {
+                let errorMsg = 'An Unknown Error of Signup occurred!';
                 if (!error.error || !error.error.error) {
                     return throwError(errorMsg);
                 }
                 return throwError(errorMsg);
             })
-        )};
+        );
+    }
+    
         login(email: string, password: string) {
             return this.http.post<AuthResponseData>(
-                'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyDlda6vhNeuR9XKgPg9i_JZtihP3G4aLqo',
+                `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=`+ environment.authKey,
                 {
                     email: email,
                     password: password,

@@ -4,6 +4,7 @@ import { DatabaseService } from '../services/db.service';
 import { NgForm } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { on } from 'events';
+import { AuthService } from '../services/auth.service';
 @Component({
   selector: 'app-manager',
   templateUrl: './manager.component.html',
@@ -13,6 +14,7 @@ export class ManagerComponent implements OnInit, OnDestroy{
   loadedTasks: Task[] = [];
   isFetching = false;
   error = null;
+  userEmail = '';
   
 
   do: number=0;
@@ -21,7 +23,7 @@ export class ManagerComponent implements OnInit, OnDestroy{
   dont: number=0;
 
   @ViewChild('taskForm') taskForm!: NgForm;
-  constructor(private db: DatabaseService){}
+  constructor(private db: DatabaseService, private authService: AuthService){}
 
   onSaveTask(task: Task) {
     console.log(task.taskName);
@@ -31,15 +33,15 @@ export class ManagerComponent implements OnInit, OnDestroy{
     this.isFetching = true;
     
     if (task.deadline) {
-        this.db.postDataWithDeadline(task.taskName, task.priority, task.urgency, task.deadline).subscribe(() => {
-            this.db.fetchData().subscribe(tasks => {
+        this.db.postDataWithDeadline(task.taskName, task.priority, task.urgency, task.deadline, this.userEmail).subscribe(() => {
+            this.db.fetchData(this.userEmail).subscribe(tasks => {
                 this.loadedTasks = tasks;
                 this.isFetching = false;
             });
         });
     } else {
-        this.db.postData(task.taskName, task.priority, task.urgency).subscribe(() => {
-            this.db.fetchData().subscribe(tasks => {
+        this.db.postData(task.taskName, task.priority, task.urgency, this.userEmail).subscribe(() => {
+            this.db.fetchData(this.userEmail).subscribe(tasks => {
                 this.loadedTasks = tasks;
                 this.isFetching = false;
             });
@@ -47,8 +49,11 @@ export class ManagerComponent implements OnInit, OnDestroy{
     }
 }
   ngOnInit(){
+    this.authService.user.subscribe(user=>{
+      this.userEmail = user?.email || 'unknown';
+    });
     this.isFetching = true;
-    this.db.fetchData().subscribe(
+    this.db.fetchData(this.userEmail).subscribe(
       tasks=>{
         this.isFetching=false;
         this.loadedTasks = tasks;
@@ -58,15 +63,15 @@ export class ManagerComponent implements OnInit, OnDestroy{
         this.error=error.message;
         }
     )
-    console.log(this.loadedTasks.values)
-
+    console.log(this.loadedTasks.values);
+    console.log(this.userEmail+'ng On init of manager');
   }
 
   ngOnDestroy(): void {}
 
   onFetchData(){
     this.isFetching = true;
-    this.db.fetchData().subscribe(
+    this.db.fetchData(this.userEmail).subscribe(
       tasks=>{
         this.isFetching=false;
         this.loadedTasks = tasks;
@@ -78,7 +83,7 @@ export class ManagerComponent implements OnInit, OnDestroy{
     )
   }
   onDelete(){
-    this.db.delete().subscribe(()=>{
+    this.db.delete(this.userEmail).subscribe(()=>{
       this.loadedTasks = [];
     });
     
