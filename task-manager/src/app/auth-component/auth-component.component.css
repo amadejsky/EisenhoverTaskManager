@@ -5,9 +5,13 @@
     height: 100vh;
     background: url('../../assets/undraw_two_factor_authentication_namy.png');
     width:100%;
+    
+}
+.btn{
+    width: 50%;
 }
 .login-form{
-    width:30%;
+    width:35%;
     height:30%;
     padding: 5vh;
     box-shadow: 15px 13px 25px 5px rgba(0,0,0,0.75);
@@ -16,3 +20,50 @@
     margin-top: -11vh;
     background-color: rgba(255, 255, 255, 0.8);
 }
+
+@media only screen and (max-width: 1367px) {
+   .container{
+    font-size: 0.75rem;
+   }
+   .btn{
+    
+    font-size: 0.6rem;
+   }
+}
+@media only screen and (max-width: 1100px) {
+    .login-form{
+        width: 40%;
+    }
+ }
+ @media only screen and (max-width: 900px) {
+    .login-form{
+        width: 50%;
+    }
+ } 
+@media only screen and (max-width: 701px) {
+    .container{
+     font-size: 0.75rem;
+    }
+    .btn{
+     height: 50%;
+     font-size: 0.6rem;
+    }
+    .login-form{
+        width: 60%;
+    }
+ }
+ @media only screen and (max-width: 600px) {
+    .login-form{
+        width: 70%;
+    }
+ }
+ @media only screen and (max-width: 500px) {
+    .login-form{
+        width: 80%;
+    }
+ }
+ @media only screen and (max-width: 400px) {
+    .login-form{
+        width: 85%;
+    }
+ }

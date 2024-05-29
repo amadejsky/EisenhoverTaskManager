@@ -10,10 +10,10 @@
                 <label for="password">Password</label>
                 <input type="password" class="form-control" id="password" ngModel name="password" required minlength="6" >
             </div>
-            <div>
-                <button class="btn btn-primary" type="submit"  >{{isLogin ? 'Login' : 'Sign Up!'}}</button> |
-                <button class="btn btn-primary" type="button" (click)="onSwitch()" >{{isLogin ? 'New? Switch to Sign Up' : 'Registered? Switch to Log in'}}</button>
-            </div>
+            <div class="d-flex justify-content-between">
+                <button class="btn btn-primary" type="submit">{{isLogin ? 'Login' : 'Sign Up!'}}</button>
+                <button class="btn btn-secondary" type="button" (click)="onSwitch()">{{isLogin ? 'Switch to Sign' : 'Switch to Login'}}</button>
+              </div>
         </form>
     </div>
         
